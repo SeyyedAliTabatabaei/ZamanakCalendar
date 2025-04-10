@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("maven-publish")
 }
 
 android {
@@ -42,4 +43,18 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation("com.google.code.gson:gson:2.10.1")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create("release", MavenPublication::class) {
+                from(components["release"])
+
+                groupId = "com.github.SeyyedAliTabatabaei.ZamanakCalendar"
+                artifactId = "stable"
+                version = "1.0.0"
+            }
+        }
+    }
 }
