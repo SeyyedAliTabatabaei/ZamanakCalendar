@@ -51,9 +51,9 @@ afterEvaluate {
             create("release", MavenPublication::class) {
                 from(components["release"])
 
-                groupId = "com.github.SeyyedAliTabatabaei.ZamanakCalendar"
-                artifactId = "stable"
-                version = "1.0.0"
+                groupId = "com.github.SeyyedAliTabatabaei"
+                artifactId = "ZamanakCalendar"
+                version = "v1.0.0"
             }
         }
     }
