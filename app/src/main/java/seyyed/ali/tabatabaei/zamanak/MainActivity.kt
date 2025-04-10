@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
 import seyyed.ali.tabatabaei.zamanakcalendar.ZamanakCalendar
-import seyyed.ali.tabatabaei.zamanakcalendar.enums.ClockFormat
-import seyyed.ali.tabatabaei.zamanakcalendar.enums.DateFormat
+import seyyed.ali.tabatabaei.zamanakcalendar.model.enums.ClockFormat
+import seyyed.ali.tabatabaei.zamanakcalendar.model.enums.DateFormat
 
 class MainActivity : ComponentActivity() {
 

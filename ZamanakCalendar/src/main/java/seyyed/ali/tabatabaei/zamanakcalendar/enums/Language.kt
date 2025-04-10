@@ -1,1 +1,0 @@
-package seyyed.ali.tabatabaei.zamanakcalendar.enumsenum class Language {    ENGLISH , PERSIAN}
