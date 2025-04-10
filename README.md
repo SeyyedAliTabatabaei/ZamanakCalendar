@@ -1,5 +1,5 @@
 # 📅 Zamanak Calendar Library 
-**Latest Version:** ![Latest Version](https://img.shields.io/badge/version-1.0.0-blue)  
+**Latest Version:** [![Latest Version](https://img.shields.io/badge/version-1.0.0-blue)]([https://github.com/your-repo/releases/latest](https://github.com/SeyyedAliTabatabaei/ZamanakCalendar/releases/tag/ZamanakCalendar))
 **License:** [Apache 2.0](https://opensource.org/licenses/Apache-2.0)  
 <div align="left">
   <strong>Select Language:</strong> 
