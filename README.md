@@ -1,5 +1,5 @@
 # 📅 Zamanak Calendar Library 
-**Latest Version:** [![Latest Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/SeyyedAliTabatabaei/ZamanakCalendar/releases/tag/ZamanakCalendar)
+**Latest Version:** [![](https://jitpack.io/v/SeyyedAliTabatabaei/ZamanakCalendar.svg)](https://jitpack.io/#SeyyedAliTabatabaei/ZamanakCalendar)
 
 **License:** [Apache 2.0](https://opensource.org/licenses/Apache-2.0)  
 <div align="left">
