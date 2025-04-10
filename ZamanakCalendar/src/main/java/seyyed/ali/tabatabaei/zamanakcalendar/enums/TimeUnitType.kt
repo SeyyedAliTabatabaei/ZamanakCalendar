@@ -1,0 +1,1 @@
+package seyyed.ali.tabatabaei.zamanakcalendar.enumsenum class TimeUnitType {    YEAR,    MONTH,    DAY,    HOUR,    MINUTE,    SECOND}

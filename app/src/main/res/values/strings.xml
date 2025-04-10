@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Zamanak</string>
+    
+    <array name="persian_days_of_the_week">
+        <item>شنبه</item>
+        <item>یکشنبه</item>
+        <item>دوشنبه</item>
+        <item>سه شنبه</item>
+        <item>چهار شنبه</item>
+        <item>پنج شنبه</item>
+        <item>جمعه</item>
+    </array>
+</resources>
