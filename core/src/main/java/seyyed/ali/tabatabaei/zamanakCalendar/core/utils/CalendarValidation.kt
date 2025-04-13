@@ -2,31 +2,35 @@ package seyyed.ali.tabatabaei.zamanakCalendar.core.utils
 
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.GregorianDate
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.HijriDate
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.JalaliDate
 
 internal object CalendarValidation {
 
     private val TAG = "ZamanakCalendar Exception"
 
-    private val minHour = 0
-    private val maxHour = 23
+    private const val minHour = 0
+    private const val maxHour = 23
 
-    private val minMinute = 0
-    private val maxMinute = 59
+    private const val minMinute = 0
+    private const val maxMinute = 59
 
-    private val minSecond = 0
-    private val maxSecond = 59
+    private const val minSecond = 0
+    private const val maxSecond = 59
 
-    private val minDay = 1
+    private const val minDay = 1
 
-    private val minMonth = 1
-    private val maxMonth = 12
+    private const val minMonth = 1
+    private const val maxMonth = 12
 
-    private val minJalaliYear = 1342
-    private val maxJalaliYear = 1450
+    private const val minJalaliYear = 1342
+    private const val maxJalaliYear = 1450
 
-    private val minGregorianYear = 1960
-    private val maxGregorianYear = 2070
+    private const val minGregorianYear = 1960
+    private const val maxGregorianYear = 2070
+
+    private const val minHijriYear = 1300
+    private const val maxHijriYear = 1500
 
     fun isValidClock(clock: Clock) {
         require(clock.hour in minHour..maxHour) {
@@ -37,6 +41,19 @@ internal object CalendarValidation {
         }
         require(clock.second in minSecond..maxSecond) {
             "$TAG Invalid second: ${clock.second}. Second must be between $minSecond and $maxSecond."
+        }
+    }
+
+    fun isValidHijriDate(hijriDate: HijriDate, isLeapYear: Boolean) {
+        require(hijriDate.month in minMonth..maxMonth) {
+            "$TAG Invalid hijri month: ${hijriDate.month}. Hijri month must be between $minMonth and $maxMonth."
+        }
+        val maxDay = if (hijriDate.month == 12 && isLeapYear) 30 else Constanse.hDaysInMonth[hijriDate.month - 1]
+        require(hijriDate.dayOfMonth in minDay..maxDay) {
+            "$TAG Invalid hijri day: ${hijriDate.dayOfMonth}. Hijri day must be between $minDay and $maxDay."
+        }
+        require(hijriDate.year in minHijriYear..maxHijriYear) {
+            "$TAG Invalid hijri year: ${hijriDate.year}. Hijri year must be between $minHijriYear and $maxHijriYear."
         }
     }
 

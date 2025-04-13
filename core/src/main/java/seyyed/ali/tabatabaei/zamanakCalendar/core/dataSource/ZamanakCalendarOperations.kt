@@ -6,6 +6,7 @@ import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.GregorianDate
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.JalaliDate
 import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.HijriDate
 import java.util.TimeZone
 
 
@@ -14,6 +15,8 @@ internal interface ZamanakCalendarOperations{
     val jalaliDate : JalaliDate
 
     val gregorianDate : GregorianDate
+
+    val hijriDate : HijriDate
 
     val clock : Clock
 
@@ -61,6 +64,13 @@ internal interface ZamanakCalendarOperations{
      * @return The current instance of [ZamanakCore].
      */
     fun setDateFromGregorian(gregorianDate: GregorianDate) : ZamanakCore
+
+    /**
+     * Sets the date from a HijriDate date.
+     * @param hijriDate The HijriDate date to set.
+     * @return The current instance of [ZamanakCore].
+     */
+    fun setDateFromHijri(hijriDate: HijriDate) : ZamanakCore
 
     /**
      * Sets the date from a time in milliseconds.

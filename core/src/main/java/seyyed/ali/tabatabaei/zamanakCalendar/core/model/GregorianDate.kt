@@ -5,6 +5,7 @@ import seyyed.ali.tabatabaei.zamanakCalendar.core.dataSource.DateOperations
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.AndroidCalendar
+import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse
 import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.EventsManager
 import kotlin.math.ceil
 
@@ -30,12 +31,12 @@ data class GregorianDate(
 
     override fun getDaysRemainingInYear(): Int {
         val maxDays = if (isLeapYear()) 366 else 365
-        val currentDay = (1 until month).sumOf { seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.gDaysInMonth[it - 1] } + dayOfMonth
+        val currentDay = (1 until month).sumOf { Constanse.gDaysInMonth[it - 1] } + dayOfMonth
         return maxDays - currentDay
     }
 
     override fun getDayInYear(): Int {
-        return (1 until month).sumOf { seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.gDaysInMonth[it - 1] } + dayOfMonth
+        return (1 until month).sumOf { Constanse.gDaysInMonth[it - 1] } + dayOfMonth
     }
 
     override fun getNumberOfDaysInYear(): Int {
@@ -44,8 +45,9 @@ data class GregorianDate(
 
     override fun getMonthName(language: Language): String {
         return when(language){
-            Language.PERSIAN -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.gregorianPersianMonths[month-1]
-            Language.ENGLISH -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.gregorianEnglishMonths[month-1]
+            Language.PERSIAN -> Constanse.gregorianPersianMonths[month-1]
+            Language.ENGLISH -> Constanse.gregorianEnglishMonths[month-1]
+            Language.ARABIC ->  Constanse.gregorianArabicMonths[month-1]
         }
     }
 
@@ -55,8 +57,9 @@ data class GregorianDate(
 
     override fun getQuarter(language: Language): String {
         return when(language){
-            Language.PERSIAN -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.seasonsPersian.getOrNull(getQuarterNumber() - 1) ?: "--"
-            Language.ENGLISH -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.seasonsEnglish.getOrNull(getQuarterNumber() - 1) ?: "--"
+            Language.PERSIAN -> Constanse.seasonsPersian.getOrNull(getQuarterNumber() - 1) ?: "--"
+            Language.ENGLISH -> Constanse.seasonsEnglish.getOrNull(getQuarterNumber() - 1) ?: "--"
+            Language.ARABIC ->  Constanse.seasonsArabic.getOrNull(getQuarterNumber() - 1) ?: "--"
         }
     }
 
@@ -75,14 +78,15 @@ data class GregorianDate(
     }
 
     override fun getDaysInMonth(): Int {
-        return if (month == 2 && isLeapYear()) 29 else seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.gDaysInMonth[month - 1]
+        return if (month == 2 && isLeapYear()) 29 else Constanse.gDaysInMonth[month - 1]
     }
 
     override fun getWeekdayName(language: Language): String {
         val gDate = GregorianDate(year, month, dayOfMonth)
         return when (language) {
-            Language.PERSIAN -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.persianDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
-            Language.ENGLISH -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.englishDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
+            Language.PERSIAN -> Constanse.persianDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
+            Language.ENGLISH -> Constanse.englishDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
+            Language.ARABIC ->  Constanse.arabicDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
         }
     }
 
@@ -135,6 +139,6 @@ data class GregorianDate(
     }
 
     override fun toString(): String {
-        return format(DateFormat.FULL)
+        return format(DateFormat.SHORT)
     }
 }
