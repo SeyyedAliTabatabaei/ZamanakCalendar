@@ -30,13 +30,13 @@ dependencyResolutionManagement {
 Then, add the library to your project dependencies:
 ```groovy
 dependencies {
-    implementation 'com.github.SeyyedAliTabatabaei:ZamanakCalendar:[Latest Version]'
+    implementation 'com.github.SeyyedAliTabatabaei.ZamanakCalendar:core:[Latest Version]'
 }
 ```
 
 ## Usage
 ```kotlin
-val calendar = ZamanakCalendar() // Create an instance
+val calendar = ZamanakCore() // Create an instance
 // Set Jalali date
 calendar.setDateFromJalali(JalaliDate(1402, 5, 15))
 // Date calculations
@@ -137,7 +137,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.SeyyedAliTabatabaei:ZamanakCalendar:[Latest Version]'
+    implementation 'com.github.SeyyedAliTabatabaei.ZamanakCalendar:core:[Latest Version]'
 }
 ```
 
@@ -148,7 +148,7 @@ dependencies {
 بعد از اضافه کردن لایبرری، برای استفاده از آن، ابتدا یک اینستنس از کلاس `ZamanakCalendar` ایجاد کنید:
 
 ```kotlin
-val calendar = ZamanakCalendar() // ایجاد نمونه
+val calendar = ZamanakCore() // ایجاد نمونه
 // تنظیم تاریخ جلالی
 calendar.setDateFromJalali(JalaliDate(1402, 5, 15))
 // محاسبات تاریخی
