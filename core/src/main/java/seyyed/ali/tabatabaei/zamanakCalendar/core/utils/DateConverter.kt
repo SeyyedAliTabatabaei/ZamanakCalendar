@@ -1,9 +1,54 @@
 package seyyed.ali.tabatabaei.zamanakCalendar.core.utils
 
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.GregorianDate
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.HijriDate
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.JalaliDate
 
 internal object DateConverter {
+    fun gregorianToHijri(gYear: Int, gMonth: Int, gDay: Int): HijriDate {
+        fun isGregorianLeapYear(year: Int): Boolean = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+
+        fun lastDayOfGregorianMonth(month: Int, year: Int): Int = when (month) {
+            2 -> if (isGregorianLeapYear(year)) 29 else 28
+            4, 6, 9, 11 -> 30
+            else -> 31
+        }
+
+        fun calcAbsGregorianDays(d: Int, m: Int, y: Int): Int {
+            var n = d
+            for (i in m - 1 downTo 1) {
+                n += lastDayOfGregorianMonth(i, y)
+            }
+            return n + (y - 1) * 365 + (y - 1) / 4 - (y - 1) / 100 + (y - 1) / 400
+        }
+
+        fun isIslamicLeapYear(year: Int): Boolean = ((11 * year + 14) % 30) < 11
+
+        fun lastDayOfIslamicMonth(month: Int, year: Int): Int = if (month % 2 == 1 || (month == 12 && isIslamicLeapYear(year))) 30 else 29
+
+        fun islamicDate(month: Int, day: Int, year: Int): Int {
+            return day + 29 * (month - 1) + (month / 2) +
+                    354 * (year - 1) + (3 + 11 * year) / 30 + 227014
+        }
+
+        val absDays = calcAbsGregorianDays(gDay, gMonth, gYear)
+        var iYear = (absDays - 227014) / 355
+
+        while (absDays >= islamicDate(1, 1, iYear)) {
+            iYear++
+        }
+        iYear--
+
+        var iMonth = 1
+        while (absDays > islamicDate(iMonth, lastDayOfIslamicMonth(iMonth, iYear), iYear)) {
+            iMonth++
+        }
+
+        val iDay = absDays - islamicDate(iMonth, 1, iYear) + 1
+
+        return HijriDate(iYear, iMonth, iDay)
+    }
+
     fun gregorianToJalali(gYear: Int, gMonth: Int, gDay: Int): JalaliDate {
         val gy = gYear - 1600
         val gm = gMonth - 1
@@ -84,5 +129,56 @@ internal object DateConverter {
         return GregorianDate(gy, gm, gDayNo + 1)
     }
 
+    fun hijriToGregorian(hYear: Int, hMonth: Int, hDay: Int): GregorianDate {
+        fun calcAbsGregorianDays(d: Int, m: Int, y: Int): Int {
+            var n = d
+            for (i in m - 1 downTo 1) {
+                n += when (i) {
+                    2 -> if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) 29 else 28
+                    4, 6, 9, 11 -> 30
+                    else -> 31
+                }
+            }
+            return n + (y - 1) * 365 + (y - 1) / 4 - (y - 1) / 100 + (y - 1) / 400
+        }
+
+        fun islamicToAbsDay(year: Int, month: Int, day: Int): Int {
+            return day + 29 * (month - 1) + (month / 2) +
+                    354 * (year - 1) + (3 + 11 * year) / 30 + 227014
+        }
+
+        fun isGregorianLeapYear(year: Int): Boolean =
+            (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+
+        fun lastDayOfGregorianMonth(month: Int, year: Int): Int = when (month) {
+            2 -> if (isGregorianLeapYear(year)) 29 else 28
+            4, 6, 9, 11 -> 30
+            else -> 31
+        }
+
+        val absDay = islamicToAbsDay(hYear, hMonth, hDay)
+
+        var gYear = (absDay * 400) / 146097  // 146097 = روزهای 400 سال میلادی
+        while (true) {
+            val daysInYear = if (isGregorianLeapYear(gYear)) 366 else 365
+            val yearStartAbs = calcAbsGregorianDays(1, 1, gYear)
+            if (absDay < yearStartAbs) {
+                gYear--
+            } else if (absDay >= yearStartAbs + daysInYear) {
+                gYear++
+            } else {
+                break
+            }
+        }
+
+        var gMonth = 1
+        while (absDay > calcAbsGregorianDays(lastDayOfGregorianMonth(gMonth, gYear), gMonth, gYear)) {
+            gMonth++
+        }
+
+        val gDay = absDay - calcAbsGregorianDays(1, gMonth, gYear) + 1
+
+        return GregorianDate(gYear, gMonth, gDay)
+    }
 
 }

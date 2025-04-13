@@ -5,6 +5,7 @@ import seyyed.ali.tabatabaei.zamanakCalendar.core.dataSource.DateOperations
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.AndroidCalendar
+import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse
 import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.DateConverter
 import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.EventsManager
 import kotlin.math.ceil
@@ -33,12 +34,12 @@ data class JalaliDate(
 
     override fun getDaysRemainingInYear(): Int {
         val maxDays = if (isLeapYear()) 366 else 365
-        val currentDay = (1 until month).sumOf { seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.jDaysInMonth[it - 1] } + dayOfMonth
+        val currentDay = (1 until month).sumOf { Constanse.jDaysInMonth[it - 1] } + dayOfMonth
         return maxDays - currentDay
     }
 
     override fun getDayInYear(): Int {
-        return (1 until month).sumOf { seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.jDaysInMonth[it - 1] } + dayOfMonth
+        return (1 until month).sumOf { Constanse.jDaysInMonth[it - 1] } + dayOfMonth
     }
 
     override fun getNumberOfDaysInYear(): Int {
@@ -47,8 +48,9 @@ data class JalaliDate(
 
     override fun getMonthName(language: Language): String {
         return when(language){
-            Language.PERSIAN -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.jalaliPersianMonths[month-1]
-            Language.ENGLISH -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.jalaliEnglishMonths[month-1]
+            Language.PERSIAN -> Constanse.jalaliPersianMonths[month-1]
+            Language.ENGLISH -> Constanse.jalaliEnglishMonths[month-1]
+            Language.ARABIC ->  Constanse.jalaliArabicMonths[month-1]
         }
     }
 
@@ -58,8 +60,9 @@ data class JalaliDate(
 
     override fun getQuarter(language: Language): String {
         return when(language){
-            Language.PERSIAN -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.seasonsPersian.getOrNull(getQuarterNumber() - 1) ?: "--"
-            Language.ENGLISH -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.seasonsEnglish.getOrNull(getQuarterNumber() - 1) ?: "--"
+            Language.PERSIAN -> Constanse.seasonsPersian.getOrNull(getQuarterNumber() - 1) ?: "--"
+            Language.ENGLISH -> Constanse.seasonsEnglish.getOrNull(getQuarterNumber() - 1) ?: "--"
+            Language.ARABIC ->  Constanse.seasonsArabic.getOrNull(getQuarterNumber() - 1) ?: "--"
         }
     }
 
@@ -78,14 +81,15 @@ data class JalaliDate(
     }
 
     override fun getDaysInMonth(): Int {
-        return if (month == 12 && isLeapYear()) 30 else seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.jDaysInMonth[month - 1]
+        return if (month == 12 && isLeapYear()) 30 else Constanse.jDaysInMonth[month - 1]
     }
 
     override fun getWeekdayName(language: Language): String {
         val gDate = DateConverter.jalaliToGregorian(year , month , dayOfMonth)
         return when (language) {
-            Language.PERSIAN -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.persianDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
-            Language.ENGLISH -> seyyed.ali.tabatabaei.zamanakCalendar.core.utils.Constanse.englishDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
+            Language.PERSIAN -> Constanse.persianDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
+            Language.ENGLISH -> Constanse.englishDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
+            Language.ARABIC ->  Constanse.arabicDayOfTheWeek[AndroidCalendar.getDayOfWeek(gDate) - 1]
         }
     }
 
@@ -102,43 +106,64 @@ data class JalaliDate(
         }
     }
 
-    override fun getDailyEvent(): List<DailyEvent> {
-        return EventsManager.events?.persianCalendar?.filter { it.day == dayOfMonth && it.month == month && it.type == EventSource.Iran.name }?.map {
+    override fun getDailyEvent(vararg eventSource: EventSource): List<DailyEvent> {
+        return EventsManager.events?.persianCalendar?.filter { it.day == dayOfMonth && it.month == month && eventSource.any { src -> it.type == src.name } }?.map {
             return@map DailyEvent(
                 isHoliday = it.holiday ?: false ,
                 title = it.title ?: "" ,
-                type = EventSource.Iran
+                type = when(it.type){
+                    EventSource.Iran.name -> EventSource.Iran
+                    EventSource.Afghanistan.name -> EventSource.Afghanistan
+                    EventSource.International.name -> EventSource.International
+                    EventSource.Nepal.name -> EventSource.Nepal
+                    EventSource.AncientIran.name -> EventSource.AncientIran
+                    else -> EventSource.None
+                }
             )
         } ?: emptyList()
     }
 
-    override fun getMonthlyEvent(): List<MonthlyEvent> {
-        return EventsManager.events?.persianCalendar?.filter { it.month == month && it.type == EventSource.Iran.name }?.map {
+    override fun getMonthlyEvent(vararg eventSource: EventSource): List<MonthlyEvent> {
+        return EventsManager.events?.persianCalendar?.filter { it.month == month  && eventSource.any { src -> it.type == src.name } }?.map {
             return@map MonthlyEvent(
                 isHoliday = it.holiday ?: false ,
                 title = it.title ?: "" ,
-                type = EventSource.Iran ,
+                type = when(it.type){
+                    EventSource.Iran.name -> EventSource.Iran
+                    EventSource.Afghanistan.name -> EventSource.Afghanistan
+                    EventSource.International.name -> EventSource.International
+                    EventSource.Nepal.name -> EventSource.Nepal
+                    EventSource.AncientIran.name -> EventSource.AncientIran
+                    else -> EventSource.None
+                } ,
                 day = it.day ?: 0
             )
         } ?: emptyList()
     }
 
-    override fun getMonthlyHolidays(): List<MonthlyEvent> {
-        return EventsManager.events?.persianCalendar?.filter { it.month == month && it.type == EventSource.Iran.name && it.holiday == true }?.map {
+    override fun getMonthlyHolidays(vararg eventSource: EventSource): List<MonthlyEvent> {
+        return EventsManager.events?.persianCalendar?.filter { it.month == month  && eventSource.any { src -> it.type == src.name } && it.holiday == true }?.map {
             return@map MonthlyEvent(
                 isHoliday = it.holiday ?: false ,
                 title = it.title ?: "" ,
-                type = EventSource.Iran ,
+                type = when(it.type){
+                    EventSource.Iran.name -> EventSource.Iran
+                    EventSource.Afghanistan.name -> EventSource.Afghanistan
+                    EventSource.International.name -> EventSource.International
+                    EventSource.Nepal.name -> EventSource.Nepal
+                    EventSource.AncientIran.name -> EventSource.AncientIran
+                    else -> EventSource.None
+                } ,
                 day = it.day ?: 0
             )
         } ?: emptyList()
     }
 
-    override fun isHoliday(): Boolean {
-        return !EventsManager.events?.persianCalendar?.filter { it.day == dayOfMonth && it.month == month && it.type == EventSource.Iran.name && it.holiday == true }.isNullOrEmpty() || getWeekdayNumber() == 7
+    override fun isHoliday(vararg eventSource: EventSource): Boolean {
+        return !EventsManager.events?.persianCalendar?.filter { it.day == dayOfMonth && it.month == month  && eventSource.any { src -> it.type == src.name } && it.holiday == true }.isNullOrEmpty() || getWeekdayNumber() == 7
     }
 
     override fun toString(): String {
-        return format(DateFormat.FULL)
+        return format(DateFormat.SHORT)
     }
 }

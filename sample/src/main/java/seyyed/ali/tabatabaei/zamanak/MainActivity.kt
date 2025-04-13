@@ -1,6 +1,7 @@
 package seyyed.ali.tabatabaei.zamanak
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -31,8 +32,11 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
 import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.JalaliDate
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.CalendarType
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.ClockFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.TimeUnitType
 
 class MainActivity : ComponentActivity() {
 
