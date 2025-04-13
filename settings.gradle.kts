@@ -20,6 +20,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Zamanak"
-include(":app")
-include(":ZamanakCore")
+rootProject.name = "ZamanakCalendar"
+include(":sample")
+include(":core")
+include(":compose-ui-calendar")
+include(":compose-ui-date-picker")
