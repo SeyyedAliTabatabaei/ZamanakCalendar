@@ -53,7 +53,7 @@ afterEvaluate {
 
                 groupId = "com.github.SeyyedAliTabatabaei"
                 artifactId = "ZamanakCore"
-                version = "v1.0.0"
+                version = "v1.0.1"
             }
         }
     }
