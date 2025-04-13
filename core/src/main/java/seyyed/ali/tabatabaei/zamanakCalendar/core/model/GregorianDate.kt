@@ -102,40 +102,61 @@ data class GregorianDate(
         }
     }
 
-    override fun getDailyEvent(): List<DailyEvent> {
-        return EventsManager.events?.gregorianCalendar?.filter { it.day == dayOfMonth && it.month == month }?.map {
+    override fun getDailyEvent(vararg eventSource: EventSource): List<DailyEvent> {
+        return EventsManager.events?.gregorianCalendar?.filter { it.day == dayOfMonth && it.month == month && eventSource.any { src -> it.type == src.name } }?.map {
             return@map DailyEvent(
                 isHoliday = it.holiday ?: false ,
                 title = it.title ?: "" ,
-                type = EventSource.Iran
+                type = when(it.type){
+                    EventSource.Iran.name -> EventSource.Iran
+                    EventSource.Afghanistan.name -> EventSource.Afghanistan
+                    EventSource.International.name -> EventSource.International
+                    EventSource.Nepal.name -> EventSource.Nepal
+                    EventSource.AncientIran.name -> EventSource.AncientIran
+                    else -> EventSource.None
+                }
             )
         } ?: emptyList()
     }
 
-    override fun getMonthlyEvent(): List<MonthlyEvent> {
-        return EventsManager.events?.gregorianCalendar?.filter { it.month == month }?.map {
+    override fun getMonthlyEvent(vararg eventSource: EventSource): List<MonthlyEvent> {
+        return EventsManager.events?.gregorianCalendar?.filter { it.month == month  && eventSource.any { src -> it.type == src.name } }?.map {
             return@map MonthlyEvent(
                 isHoliday = it.holiday ?: false ,
                 title = it.title ?: "" ,
-                type = EventSource.Iran ,
+                type = when(it.type){
+                    EventSource.Iran.name -> EventSource.Iran
+                    EventSource.Afghanistan.name -> EventSource.Afghanistan
+                    EventSource.International.name -> EventSource.International
+                    EventSource.Nepal.name -> EventSource.Nepal
+                    EventSource.AncientIran.name -> EventSource.AncientIran
+                    else -> EventSource.None
+                } ,
                 day = it.day ?: 0
             )
         } ?: emptyList()
     }
 
-    override fun getMonthlyHolidays(): List<MonthlyEvent> {
-        return EventsManager.events?.gregorianCalendar?.filter { it.month == month && it.holiday == true }?.map {
+    override fun getMonthlyHolidays(vararg eventSource: EventSource): List<MonthlyEvent> {
+        return EventsManager.events?.gregorianCalendar?.filter { it.month == month  && eventSource.any { src -> it.type == src.name } && it.holiday == true }?.map {
             return@map MonthlyEvent(
                 isHoliday = it.holiday ?: false ,
                 title = it.title ?: "" ,
-                type = EventSource.Iran ,
+                type = when(it.type){
+                    EventSource.Iran.name -> EventSource.Iran
+                    EventSource.Afghanistan.name -> EventSource.Afghanistan
+                    EventSource.International.name -> EventSource.International
+                    EventSource.Nepal.name -> EventSource.Nepal
+                    EventSource.AncientIran.name -> EventSource.AncientIran
+                    else -> EventSource.None
+                } ,
                 day = it.day ?: 0
             )
         } ?: emptyList()
     }
 
-    override fun isHoliday(): Boolean {
-        return !EventsManager.events?.gregorianCalendar?.filter { it.day == dayOfMonth && it.month == month && it.holiday == true }.isNullOrEmpty() || getWeekdayNumber() == 7
+    override fun isHoliday(vararg eventSource: EventSource): Boolean {
+        return !EventsManager.events?.gregorianCalendar?.filter { it.day == dayOfMonth && it.month == month  && eventSource.any { src -> it.type == src.name } && it.holiday == true }.isNullOrEmpty() || getWeekdayNumber() == 7
     }
 
     override fun toString(): String {

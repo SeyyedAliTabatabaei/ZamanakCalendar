@@ -3,6 +3,7 @@ package seyyed.ali.tabatabaei.zamanakCalendar.core.dataSource
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.DailyEvent
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.EventSource
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.MonthlyEvent
 
 
@@ -108,26 +109,26 @@ internal interface DateOperations{
      *
      * @return A list of [DailyEvent] objects occurring on this date.
      */
-    fun getDailyEvent() : List<DailyEvent>
+    fun getDailyEvent(vararg eventSource: EventSource = EventSource.entries.toTypedArray()) : List<DailyEvent>
 
     /**
      * Gets a list of monthly events for the current month.
      *
      * @return A list of [MonthlyEvent] objects for the current month.
      */
-    fun getMonthlyEvent() : List<MonthlyEvent>
+    fun getMonthlyEvent(vararg eventSource: EventSource = EventSource.entries.toTypedArray()) : List<MonthlyEvent>
 
     /**
      * Gets a list of monthly holidays for the current month.
      *
      * @return A list of [MonthlyEvent] objects that represent holidays for the current month.
      */
-    fun getMonthlyHolidays() : List<MonthlyEvent>
+    fun getMonthlyHolidays(vararg eventSource: EventSource = EventSource.entries.toTypedArray()) : List<MonthlyEvent>
 
     /**
      * Checks if the current date is a holiday.
      *
      * @return True if the current date is a holiday; otherwise, false.
      */
-    fun isHoliday(): Boolean
+    fun isHoliday(vararg eventSource: EventSource = EventSource.entries.toTypedArray()): Boolean
 }
