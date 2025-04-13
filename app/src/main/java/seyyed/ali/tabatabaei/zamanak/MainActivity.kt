@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
-import seyyed.ali.tabatabaei.zamanakcalendar.ZamanakCalendar
-import seyyed.ali.tabatabaei.zamanakcalendar.model.enums.ClockFormat
-import seyyed.ali.tabatabaei.zamanakcalendar.model.enums.DateFormat
+import seyyed.ali.tabatabaei.zamanakCore.ZamanakCore
+import seyyed.ali.tabatabaei.zamanakCore.model.enums.ClockFormat
+import seyyed.ali.tabatabaei.zamanakCore.model.enums.DateFormat
 
 class MainActivity : ComponentActivity() {
 
@@ -58,13 +58,13 @@ fun MyApp() {
 
 @Composable
 fun Main() {
-    val zamanakCalendar = remember { mutableStateOf(ZamanakCalendar()) }
+    val zamanakCore = remember { mutableStateOf(ZamanakCore()) }
     val formatDate = remember { mutableStateOf(DateFormat.FULL) }
     val formatClock = remember { mutableStateOf(ClockFormat.H24_HMS) }
 
     LaunchedEffect(Unit) {
         while (true){
-            zamanakCalendar.value = ZamanakCalendar()
+            zamanakCore.value = ZamanakCore()
             delay(1000)
         }
     }
@@ -84,7 +84,7 @@ fun Main() {
                 horizontalArrangement = Arrangement.Absolute.SpaceBetween
             ) {
                 Text(
-                    text = zamanakCalendar.value.jalaliDate.format(formatDate.value) ,
+                    text = zamanakCore.value.jalaliDate.format(formatDate.value) ,
                     style = MaterialTheme.typography.bodyMedium ,
                 )
 
@@ -94,6 +94,8 @@ fun Main() {
                 )
             }
 
+
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -101,7 +103,7 @@ fun Main() {
                 horizontalArrangement = Arrangement.Absolute.SpaceBetween
             ) {
                 Text(
-                    text = zamanakCalendar.value.gregorianDate.format(formatDate.value) ,
+                    text = zamanakCore.value.gregorianDate.format(formatDate.value) ,
                     style = MaterialTheme.typography.bodyMedium ,
                 )
 
@@ -118,7 +120,7 @@ fun Main() {
                 horizontalArrangement = Arrangement.Absolute.SpaceBetween
             ) {
                 Text(
-                    text = zamanakCalendar.value.clock.format(formatClock.value) ,
+                    text = zamanakCore.value.clock.format(formatClock.value) ,
                     style = MaterialTheme.typography.bodyMedium ,
                 )
 

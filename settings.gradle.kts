@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Zamanak"
 include(":app")
-include(":ZamanakCalendar")
+include(":ZamanakCore")
