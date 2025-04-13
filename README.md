@@ -5,7 +5,7 @@
 
 
 ## Introduction
-`ZamanakCalendar` is a useful library for managing Jalali and Gregorian dates in Android applications. This library allows you to easily design and implement your applications using Jalali and Gregorian dates. The features of this library include date conversion, calculating the remaining days in the year, checking leap years, and formatting dates. This library also allows users to select the application language between Persian and English to provide a better user experience for all users.
+`ZamanakCalendar` is a useful library for managing Jalali, Hijhri and Gregorian dates in Android applications. This library allows you to easily design and implement your applications using Jalali and Gregorian dates. The features of this library include date conversion, calculating the remaining days in the year, checking leap years, and formatting dates. This library also allows users to select the application language between Persian and English to provide a better user experience for all users.
 
 ## Installation
 To add this library to your project, first, add the following settings to your `settings.gradle` file:
