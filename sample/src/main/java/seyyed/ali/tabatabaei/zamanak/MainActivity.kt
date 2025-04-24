@@ -33,12 +33,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import seyyed.ali.tabatabaei.zamanak.ui.theme.CustomFontFamily
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePicker
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePickerBottomSheet
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.MonthFormat
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakDatePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePicker
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePickerBottomSheet
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakTimePickerConfig
@@ -63,11 +68,9 @@ fun MyApp() {
     ZamanakTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column {
-
+                DatePicker()
                 TimePicker()
-
                 Main()
-
             }
         }
     }
@@ -82,7 +85,7 @@ fun TimePicker() {
         ZamanakTimePickerBottomSheet(
             config = ZamanakTimePickerConfig(
                 defaultClock = Clock(20 , 55 , 30) ,
-                focusBackground = null ,
+                focusBackground = null
             ),
             onDismissBottomSheet = { showBottomSheet = false } ,
             onConfirm = {
@@ -105,7 +108,36 @@ fun TimePicker() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DatePicker() {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    if (showBottomSheet) {
+        ZamanakDatePickerBottomSheet(
+            config = ZamanakDatePickerConfig(
+                fontFamily = CustomFontFamily
+            ),
+            selectedDateTextStyle = MaterialTheme.typography.bodyLarge,
+            onDismissBottomSheet = { showBottomSheet = false } ,
+            onConfirm = {
+                Log.i("TAG", "MyApp: $it")
+            }
+        )
+    }
 
+    Button(
+        onClick = { showBottomSheet = true },
+        shape = RoundedCornerShape(30),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White ,
+        ),
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+    ) {
+        Text("دیالوگ انتخاب تاریخ" , style = MaterialTheme.typography.bodyMedium)
+    }
+}
 
 @Composable
 fun Main() {

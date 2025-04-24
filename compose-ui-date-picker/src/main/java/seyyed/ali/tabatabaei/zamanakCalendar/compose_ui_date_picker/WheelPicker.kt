@@ -78,7 +78,7 @@ internal fun <T>WheelPicker(
             .filter { it }
             .first()
         listState.scrollToItem(initialSelectedIndex)
-        onItemSelected(items.getOrNull(itemSelectedPos.intValue) , itemSelectedPos.intValue)
+        onItemSelected(items.getOrNull(initialSelectedIndex) , initialSelectedIndex)
     }
 
     Box(

@@ -1,5 +1,6 @@
-package seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker
+package seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +17,6 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,26 +31,35 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.R
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakDatePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakTimePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.theme.ZamanakCalendarDatePickerTheme
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.utils.hideAndDismiss
+import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.CalendarType
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.ClockFormat
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ZamanakTimePickerBottomSheet(
-    config: ZamanakTimePickerConfig = ZamanakTimePickerConfig(),
+fun ZamanakDatePickerBottomSheet(
+    config: ZamanakDatePickerConfig = ZamanakDatePickerConfig(),
     bottomSheetState : SheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true ,
         confirmValueChange = { false }
     ),
-    clockFormat: ClockFormat = ClockFormat.H24_HMS,
-    buttonColor: Color = Color.Blue ,
+    dateFormat: DateFormat = DateFormat.FULL,
+    selectedDateTextStyle : TextStyle = TextStyle(
+        fontFamily = config.fontFamily,
+        fontSize = config.maxFontSize.sp,
+    ),
+    buttonColor: Color = Color.Blue,
     backgroundColor : Color = MaterialTheme.colorScheme.background,
-    onDismissBottomSheet : () -> Unit = {} ,
-    onConfirm : (timeSelected : Clock) -> Unit
+    onDismissBottomSheet : () -> Unit = {},
+    onConfirm : (dateSelected : ZamanakCore) -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
@@ -62,10 +71,11 @@ fun ZamanakTimePickerBottomSheet(
         Column(
             modifier = Modifier.padding(vertical = 10.dp)
         ){
-            ZamanakTimePickerBottomSheetContent(
+            ZamanakDatePickerBottomSheetContent(
                 config = config ,
-                clockFormat = clockFormat ,
+                dateFormat = dateFormat ,
                 buttonColor = buttonColor,
+                selectedDateTextStyle = selectedDateTextStyle,
                 onCancel = {
                     scope.launch {
                         bottomSheetState.hideAndDismiss(onDismissBottomSheet)
@@ -83,34 +93,36 @@ fun ZamanakTimePickerBottomSheet(
 }
 
 @Composable
-private fun ZamanakTimePickerBottomSheetContent(
-    config : ZamanakTimePickerConfig,
-    clockFormat: ClockFormat,
+private fun ZamanakDatePickerBottomSheetContent(
+    config : ZamanakDatePickerConfig,
+    dateFormat: DateFormat,
     buttonConfirmText : String = stringResource(R.string.confirm),
     buttonCancelText : String = stringResource(R.string.cancel),
     buttonColor : Color,
+    selectedDateTextStyle : TextStyle ,
     onCancel : () -> Unit = {},
-    onConfirm : (timeSelected : Clock) -> Unit
+    onConfirm : (dateSelected : ZamanakCore) -> Unit
 ) { 
     Column(
         modifier = Modifier.padding(vertical = 10.dp) ,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
-        var clockSelected by remember { mutableStateOf(config.defaultClock) }
+        var dateSelected by remember { mutableStateOf(config.defaultDate) }
 
         Text(
-            text = clockSelected.format(clockFormat) ,
-            style = TextStyle(
-                fontFamily = config.fontFamily,
-                fontSize = config.maxFontSize.sp,
-            )
+            text = when(config.calendarType){
+                CalendarType.Gregorian -> dateSelected.gregorianDate.format(dateFormat)
+                CalendarType.Jalali -> dateSelected.jalaliDate.format(dateFormat)
+                CalendarType.Hijri -> dateSelected.hijriDate.format(dateFormat)
+            } ,
+            style = selectedDateTextStyle
         )
 
-        ZamanakTimePicker(
+        ZamanakDatePicker(
             config = config ,
-            timeSelected = {
-                clockSelected = it
+            dateSelected = {
+                dateSelected = it
             }
         )
 
@@ -137,7 +149,7 @@ private fun ZamanakTimePickerBottomSheetContent(
             }
 
             Button(
-                onClick = { onConfirm(clockSelected) },
+                onClick = { onConfirm(dateSelected) },
                 shape = RoundedCornerShape(30),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = buttonColor,
@@ -158,11 +170,11 @@ private fun ZamanakTimePickerBottomSheetContent(
 @Composable
 private fun ZamanakTimePickerBottomSheetPreview() {
     ZamanakCalendarDatePickerTheme {
-        ZamanakTimePickerBottomSheetContent(
-            config = ZamanakTimePickerConfig() ,
-            clockFormat = ClockFormat.H24_HMS ,
-            buttonColor = Color.Blue
-
+        ZamanakDatePickerBottomSheetContent(
+            config = ZamanakDatePickerConfig() ,
+            dateFormat = DateFormat.FULL,
+            buttonColor = Color.Blue ,
+            selectedDateTextStyle = TextStyle()
         ){
 
         }
