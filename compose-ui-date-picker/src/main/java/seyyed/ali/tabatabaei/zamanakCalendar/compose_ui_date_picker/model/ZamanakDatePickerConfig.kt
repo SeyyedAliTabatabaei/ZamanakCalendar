@@ -16,7 +16,7 @@ import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 
 
 data class ZamanakDatePickerConfig(
-    val unfocusedCount: Int = 2,
+    val unfocusedCount: Int = 3,
     val maxRotation: Float = 70f,
     val maxFontSize: Float = 20f,
     val minFontSize: Float = 12f,

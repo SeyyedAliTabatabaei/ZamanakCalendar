@@ -13,14 +13,14 @@ import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
 
 
 data class ZamanakTimePickerConfig(
-    val unfocusedCount: Int = 2,
+    val unfocusedCount: Int = 3,
     val maxRotation: Float = 70f,
     val maxFontSize: Float = 20f,
     val minFontSize: Float = 12f,
     val fontFamily: FontFamily? = null,
     val textColor: Color = Color.Gray,
     val textColorSelected: Color = Color.Blue,
-    val itemHeight: Dp = 30.dp,
+    val itemHeight: Dp = 25.dp,
     val showHourPicker: Boolean = true,
     val showMinutePicker: Boolean = true,
     val showSecondPicker: Boolean = true,

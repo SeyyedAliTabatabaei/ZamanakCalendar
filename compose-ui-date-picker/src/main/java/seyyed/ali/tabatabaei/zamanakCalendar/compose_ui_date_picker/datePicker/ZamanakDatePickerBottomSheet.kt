@@ -66,7 +66,8 @@ fun ZamanakDatePickerBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismissBottomSheet,
         sheetState = bottomSheetState ,
-        containerColor = backgroundColor
+        containerColor = backgroundColor ,
+        dragHandle = null
     ) {
         Column(
             modifier = Modifier.padding(vertical = 10.dp)
@@ -116,7 +117,8 @@ private fun ZamanakDatePickerBottomSheetContent(
                 CalendarType.Jalali -> dateSelected.jalaliDate.format(dateFormat)
                 CalendarType.Hijri -> dateSelected.hijriDate.format(dateFormat)
             } ,
-            style = selectedDateTextStyle
+            style = selectedDateTextStyle ,
+            modifier = Modifier.padding(bottom = 15.dp)
         )
 
         ZamanakDatePicker(

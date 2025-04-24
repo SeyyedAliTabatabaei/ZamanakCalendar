@@ -47,6 +47,10 @@ fun ZamanakTimePickerBottomSheet(
         confirmValueChange = { false }
     ),
     clockFormat: ClockFormat = ClockFormat.H24_HMS,
+    selectedTimeTextStyle : TextStyle = TextStyle(
+        fontFamily = config.fontFamily,
+        fontSize = config.maxFontSize.sp,
+    ),
     buttonColor: Color = Color.Blue ,
     backgroundColor : Color = MaterialTheme.colorScheme.background,
     onDismissBottomSheet : () -> Unit = {} ,
@@ -57,7 +61,8 @@ fun ZamanakTimePickerBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismissBottomSheet,
         sheetState = bottomSheetState ,
-        containerColor = backgroundColor
+        containerColor = backgroundColor ,
+        dragHandle = null
     ) {
         Column(
             modifier = Modifier.padding(vertical = 10.dp)
@@ -66,6 +71,7 @@ fun ZamanakTimePickerBottomSheet(
                 config = config ,
                 clockFormat = clockFormat ,
                 buttonColor = buttonColor,
+                selectedTimeTextStyle = selectedTimeTextStyle,
                 onCancel = {
                     scope.launch {
                         bottomSheetState.hideAndDismiss(onDismissBottomSheet)
@@ -89,6 +95,7 @@ private fun ZamanakTimePickerBottomSheetContent(
     buttonConfirmText : String = stringResource(R.string.confirm),
     buttonCancelText : String = stringResource(R.string.cancel),
     buttonColor : Color,
+    selectedTimeTextStyle : TextStyle ,
     onCancel : () -> Unit = {},
     onConfirm : (timeSelected : Clock) -> Unit
 ) { 
@@ -101,10 +108,8 @@ private fun ZamanakTimePickerBottomSheetContent(
 
         Text(
             text = clockSelected.format(clockFormat) ,
-            style = TextStyle(
-                fontFamily = config.fontFamily,
-                fontSize = config.maxFontSize.sp,
-            )
+            style = selectedTimeTextStyle ,
+            modifier = Modifier.padding(bottom = 15.dp)
         )
 
         ZamanakTimePicker(
@@ -161,7 +166,8 @@ private fun ZamanakTimePickerBottomSheetPreview() {
         ZamanakTimePickerBottomSheetContent(
             config = ZamanakTimePickerConfig() ,
             clockFormat = ClockFormat.H24_HMS ,
-            buttonColor = Color.Blue
+            buttonColor = Color.Blue ,
+            selectedTimeTextStyle = TextStyle()
 
         ){
 
