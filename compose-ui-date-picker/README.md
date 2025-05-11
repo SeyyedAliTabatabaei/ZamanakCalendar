@@ -15,7 +15,6 @@
 `compose-ui-date-picker` is a modern, flexible, and fully customizable date and time picker built with Jetpack Compose, designed to support **Jalali (Persian)**, **Hijri (Islamic)**, and **Gregorian** calendars. It works seamlessly with the zamanak-calendar-core module.
 
 ✨ Features
-
 -	Elegant and user-friendly **date & time selection UI**
 -	Supports **Jalali**, **Hijri**, and **Gregorian** calendar systems
 -	Built entirely using **Jetpack Compose**
@@ -51,9 +50,25 @@ ZamanakTimePicker(
         is24HourFormat = false,
         defaultClock = Clock(10, 30, 0)
     )
-) { selectedClock ->
+) {  selectedClock ->
     // Handle selected time (Clock object with hour, minute, second)
-    println("Selected time: $selectedClock")
+    Log.i("TAG", "Selected time: $selectedClock")
+}
+
+// Time Picker shown as a Bottom Sheet Dialog
+var isShowBottomSheet by remember { mutableStateOf(false) }
+if (isShowBottomSheet) {
+    ZamanakTimePickerBottomSheet(
+        config = ZamanakTimePickerConfig(
+            defaultClock = Clock(20 , 55 , 30) ,
+            focusBackground = null ,
+        ),
+        onDismissBottomSheet = { isShowBottomSheet = false } ,
+        onConfirm = {  selectedClock ->
+            // Handle selected time (Clock object with hour, minute, second)
+            Log.i("TAG", "Selected time: $selectedClock")
+        }
+    )
 }
 ```
 

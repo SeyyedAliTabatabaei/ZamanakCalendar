@@ -21,31 +21,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import seyyed.ali.tabatabaei.zamanak.ui.theme.CustomFontFamily
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
-import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePicker
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePickerBottomSheet
-import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.MonthFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakDatePickerConfig
-import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePicker
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePickerBottomSheet
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakTimePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
@@ -83,20 +75,14 @@ fun MyApp() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePicker() {
-    var showBottomSheet by remember { mutableStateOf(false) }
-    if (showBottomSheet) {
+    var isShowBottomSheet by remember { mutableStateOf(false) }
+    if (isShowBottomSheet) {
         ZamanakTimePickerBottomSheet(
             config = ZamanakTimePickerConfig(
                 defaultClock = Clock(20 , 55 , 30) ,
                 focusBackground = null ,
-                is24HourFormat = false ,
-                minFontSize = 16f,
-                maxFontSize = 16f,
-                maxRotation = 0f ,
-                unfocusedCount = 1 ,
             ),
-            clockFormat = ClockFormat.H12_HMS_AMPM,
-            onDismissBottomSheet = { showBottomSheet = false } ,
+            onDismissBottomSheet = { isShowBottomSheet = false } ,
             onConfirm = {
                 Log.i("TAG", "MyApp: $it")
             }
@@ -104,7 +90,7 @@ fun TimePicker() {
     }
 
     Button(
-        onClick = { showBottomSheet = true },
+        onClick = { isShowBottomSheet = true },
         shape = RoundedCornerShape(30),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
