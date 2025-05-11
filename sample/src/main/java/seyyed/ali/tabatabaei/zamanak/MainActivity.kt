@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePicker
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePickerBottomSheet
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakDatePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePickerBottomSheet
@@ -65,7 +66,7 @@ fun MyApp() {
             Column {
                 DatePicker()
                 TimePicker()
-//                Main()
+                Main()
             }
         }
     }
@@ -112,6 +113,7 @@ fun DatePicker() {
             config = ZamanakDatePickerConfig(
                 calendarType = CalendarType.Gregorian,
                 language = Language.ENGLISH ,
+                minYear = 2020
             ),
             dateFormat = DateFormat.FULL,
             language = Language.ENGLISH,
