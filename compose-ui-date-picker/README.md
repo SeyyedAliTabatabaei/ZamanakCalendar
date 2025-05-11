@@ -5,22 +5,23 @@
 
 ## Screen Shots
 <p align="center">
-  <img src="ScreenShots/shot1.png" width="24%" style="margin:5px"/>
-  <img src="ScreenShots/shot2.png" width="24%" style="margin:5px"/>
-  <img src="ScreenShots/shot3.png" width="24%" style="margin:5px"/>
-  <img src="ScreenShots/shot4.png" width="24%" style="margin:5px"/>
+  <img src="ScreenShots/shot1.png" width="24%" style="margin:15px"/>
+  <img src="ScreenShots/shot2.png" width="24%" style="margin:15px"/>
+  <img src="ScreenShots/shot3.png" width="24%" style="margin:15px"/>
+  <img src="ScreenShots/shot4.png" width="24%" style="margin:15px"/>
 </p>
 
 ## Introduction
 `compose-ui-date-picker` is a modern, flexible, and fully customizable date and time picker built with Jetpack Compose, designed to support **Jalali (Persian)**, **Hijri (Islamic)**, and **Gregorian** calendars. It works seamlessly with the zamanak-calendar-core module.
 
 ✨ Features
-•	Elegant and user-friendly **date & time selection UI**
-•	Supports **Jalali**, **Hijri**, and **Gregorian** calendar systems
-•	Built entirely using **Jetpack Compose**
-•	Fully **customizable appearance** to match your app’s theme
-•	Easy integration with Compose State, ViewModel, or remember patterns
-•	Localized texts and labels for better UX
+
+-	Elegant and user-friendly **date & time selection UI**
+-	Supports **Jalali**, **Hijri**, and **Gregorian** calendar systems
+-	Built entirely using **Jetpack Compose**
+-	Fully **customizable appearance** to match your app’s theme
+-	Easy integration with Compose State, ViewModel, or remember patterns
+-	Localized texts and labels for better UX
 
 
 ## Installation
