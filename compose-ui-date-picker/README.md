@@ -114,7 +114,7 @@ ZamanakDatePicker(
     Log.i("TAG", "Selected date: $selectedDate")
 }
 
-// Time Picker shown as a Bottom Sheet Dialog
+// Date Picker shown as a Bottom Sheet Dialog
 var isShowBottomSheet by remember { mutableStateOf(false) }
 if (isShowBottomSheet) {
     ZamanakDatePickerBottomSheet(
@@ -166,14 +166,13 @@ if (isShowBottomSheet) {
 
 ---
 
-<div align="left">
-    <h2>📬 Contact Developer</h2>
-    <p>
-        ✉️ <a href="mailto:SeyyedAliTabatabaei7@gmail.com">Email</a> |
-        💻 <a href="https://github.com/SeyyedAliTabatabaei">GitHub</a>
-    </p>
-    <p>
-        <img src="https://img.shields.io/badge/Star_on_GitHub-🌟-yellow" alt="Star">
-        <img src="https://img.shields.io/badge/Report_Issues-🐞-red" alt="Issues">
-    </p>
-</div>
+## 👤 Author
+
+**Seyyed Ali Tabatabaei**  
+📧 [SeyyedAliTabatabaei7@gmail.com](mailto:SeyyedAliTabatabaei7@gmail.com)  
+🌐 [GitHub Profile](https://github.com/SeyyedAliTabatabaei)
+
+---
+
+🌟 Star this repo to support the project!  
+🐛 Found a bug? [Open an issue](https://github.com/SeyyedAliTabatabaei/ZamanakCalendar/issues)

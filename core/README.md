@@ -6,12 +6,12 @@
 ## Introduction
 `zamanak-calendar-core` is the core module of the ZamanakCalendar library. It provides robust and easy-to-use utilities for working with Jalali (Persian), Hijri (Islamic), and Gregorian dates in Android applications.
 
-✨ Features
-•	Full support for **Jalali**, **Hijri**, and **Gregorian** calendars
-•	Date conversion between calendar systems
-•	Date comparison, formatting, and basic operations
-•	Lightweight and dependency-free core logic
-•	Written in Kotlin with clean and maintainable code
+**✨Features**
+-	Full support for **Jalali**, **Hijri**, and **Gregorian** calendars
+-	Date conversion between calendar systems
+-	Date comparison, formatting, and basic operations
+-	Lightweight and dependency-free core logic
+-	Written in Kotlin with clean and maintainable code
 
 
 ## Installation
@@ -97,14 +97,13 @@ println(calendar.jalaliDate.format(DateFormat.FULL, Language.ENGLISH))
 
 ---
 
-<div align="left">
-    <h2>📬 Contact Developer</h2>
-    <p>
-        ✉️ <a href="mailto:SeyyedAliTabatabaei7@gmail.com">Email</a> |
-        💻 <a href="https://github.com/SeyyedAliTabatabaei">GitHub</a>
-    </p>
-    <p>
-        <img src="https://img.shields.io/badge/Star_on_GitHub-🌟-yellow" alt="Star">
-        <img src="https://img.shields.io/badge/Report_Issues-🐞-red" alt="Issues">
-    </p>
-</div>
+## 👤 Author
+
+**Seyyed Ali Tabatabaei**  
+📧 [SeyyedAliTabatabaei7@gmail.com](mailto:SeyyedAliTabatabaei7@gmail.com)  
+🌐 [GitHub Profile](https://github.com/SeyyedAliTabatabaei)
+
+---
+
+🌟 Star this repo to support the project!  
+🐛 Found a bug? [Open an issue](https://github.com/SeyyedAliTabatabaei/ZamanakCalendar/issues)
