@@ -5,10 +5,10 @@
 
 ## Screen Shots
 <p align="center">
-  <img src="ScreenShots/shot1.png" width="559" style="margin:5px"/>
-  <img src="ScreenShots/shot2.png" width="559" style="margin:5px"/>
-  <img src="ScreenShots/shot3.png" width="559" style="margin:5px"/>
-  <img src="ScreenShots/shot4.png" width="559" style="margin:5px"/>
+  <img src="ScreenShots/shot1.png" width="24%" style="margin:5px"/>
+  <img src="ScreenShots/shot2.png" width="24%" style="margin:5px"/>
+  <img src="ScreenShots/shot3.png" width="24%" style="margin:5px"/>
+  <img src="ScreenShots/shot4.png" width="24%" style="margin:5px"/>
 </p>
 
 ## Introduction
