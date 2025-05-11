@@ -24,5 +24,10 @@ val Typography = Typography(
     bodyMedium = TextStyle(
         fontFamily = CustomFontFamily ,
         fontSize = 14.sp
+    ) ,
+    titleSmall = TextStyle(
+        fontFamily = CustomFontFamily ,
+        fontSize = 16.sp ,
+        fontWeight = FontWeight.Bold ,
     )
 )

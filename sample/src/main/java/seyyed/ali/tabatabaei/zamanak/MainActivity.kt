@@ -13,33 +13,42 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import seyyed.ali.tabatabaei.zamanak.ui.theme.ZamanakTheme
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePicker
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.ZamanakDatePickerBottomSheet
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakDatePickerConfig
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePickerBottomSheet
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakTimePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
-import seyyed.ali.tabatabaei.zamanakCalendar.core.model.JalaliDate
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.CalendarType
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.ClockFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
-import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.TimeUnitType
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 
 class MainActivity : ComponentActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +58,83 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyApp() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        ZamanakTheme {
-            Surface(modifier = Modifier.fillMaxSize()) {
+    ZamanakTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            Column {
+                DatePicker()
+                TimePicker()
                 Main()
             }
         }
+    }
+    
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TimePicker() {
+    var isShowBottomSheet by remember { mutableStateOf(false) }
+    if (isShowBottomSheet) {
+        ZamanakTimePickerBottomSheet(
+            config = ZamanakTimePickerConfig(
+                defaultClock = Clock(20 , 55 , 30) ,
+                focusBackground = null ,
+            ),
+            onDismissBottomSheet = { isShowBottomSheet = false } ,
+            onConfirm = {
+                Log.i("TAG", "MyApp: $it")
+            }
+        )
+    }
+
+    Button(
+        onClick = { isShowBottomSheet = true },
+        shape = RoundedCornerShape(30),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White ,
+        ),
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+    ) {
+        Text(stringResource(R.string.time_picker) , style = MaterialTheme.typography.bodyMedium)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DatePicker() {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    if (showBottomSheet) {
+        ZamanakDatePickerBottomSheet(
+            config = ZamanakDatePickerConfig(
+                calendarType = CalendarType.Gregorian,
+                language = Language.ENGLISH ,
+                minYear = 2020
+            ),
+            dateFormat = DateFormat.FULL,
+            language = Language.ENGLISH,
+            onDismissBottomSheet = { showBottomSheet = false } ,
+            onConfirm = {
+                Log.i("TAG", "MyApp: $it")
+            }
+        )
+    }
+
+    Button(
+        onClick = { showBottomSheet = true },
+        shape = RoundedCornerShape(30),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White ,
+        ),
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+    ) {
+        Text(stringResource(R.string.date_picker) , style = MaterialTheme.typography.bodyMedium)
     }
 }
 

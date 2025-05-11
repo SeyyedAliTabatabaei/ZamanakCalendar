@@ -81,7 +81,7 @@ internal object CalendarValidation {
         }
 
         require(gregorianDate.year in minGregorianYear..maxGregorianYear) {
-            "$TAG Invalid gregorianDate year: ${gregorianDate.year}. GregorianDate year must be between $minJalaliYear and $maxJalaliYear."
+            "$TAG Invalid gregorianDate year: ${gregorianDate.year}. GregorianDate year must be between $minGregorianYear and $maxGregorianYear."
         }
     }
 

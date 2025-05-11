@@ -2,6 +2,7 @@ package seyyed.ali.tabatabaei.zamanakCalendar.core.model
 
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.ClockFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.HourType
+import seyyed.ali.tabatabaei.zamanakCalendar.core.utils.CalendarValidation
 
 /**
  * Data class representing a clock with hours, minutes, and seconds.
@@ -18,6 +19,9 @@ data class Clock(
     val second: Int = 0,
 ) : seyyed.ali.tabatabaei.zamanakCalendar.core.dataSource.ClockOperations {
 
+    init {
+        CalendarValidation.isValidClock(this)
+    }
 
     override val formatHour12: Int
         get() = when(hour){
