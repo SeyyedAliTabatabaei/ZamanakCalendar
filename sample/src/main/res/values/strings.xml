@@ -10,4 +10,7 @@
         <item>پنج شنبه</item>
         <item>جمعه</item>
     </array>
+
+    <string name="date_picker">انتخاب تاریخ</string>
+    <string name="time_picker">انتخاب زمان</string>
 </resources>

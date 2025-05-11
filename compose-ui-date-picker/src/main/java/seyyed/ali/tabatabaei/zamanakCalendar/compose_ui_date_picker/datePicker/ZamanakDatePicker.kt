@@ -35,7 +35,7 @@ fun ZamanakDatePicker(
     config: ZamanakDatePickerConfig = ZamanakDatePickerConfig(),
     dateSelected: (ZamanakCore) -> Unit
 ) {
-    val yearList = (config.minYear..config.maxYear).toList()
+    val yearList = (config.newMinYear..config.newMaxYear).toList()
     val monthNumberList = (1..12).toList()
     var dayList by remember { mutableStateOf((1..30).toList()) }
 
@@ -47,7 +47,7 @@ fun ZamanakDatePicker(
     var daySelected by remember { mutableIntStateOf(dayList.indexOf(getDayFromCore(defaultDate, config.calendarType))) }
 
     LaunchedEffect(yearSelected, monthSelected) {
-        val year = yearList.getOrNull(yearSelected) ?: config.minYear
+        val year = yearList.getOrNull(yearSelected) ?: config.newMinYear
         val month = monthNumberList.getOrNull(monthSelected) ?: 1
         val daysInMonth = getDaysInMonth(config.calendarType, defaultDate, year, month)
 
@@ -57,7 +57,7 @@ fun ZamanakDatePicker(
     }
 
     LaunchedEffect(yearSelected, monthSelected, daySelected) {
-        val year = yearList.getOrNull(yearSelected) ?: config.minYear
+        val year = yearList.getOrNull(yearSelected) ?: config.newMinYear
         val month = monthNumberList.getOrNull(monthSelected) ?: 1
         val day = dayList.getOrNull(daySelected) ?: 1
 

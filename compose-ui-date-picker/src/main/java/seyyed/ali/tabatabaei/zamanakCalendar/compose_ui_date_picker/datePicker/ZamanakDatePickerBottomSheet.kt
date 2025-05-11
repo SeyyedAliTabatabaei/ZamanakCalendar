@@ -42,6 +42,7 @@ import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.CalendarType
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.ClockFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +53,7 @@ fun ZamanakDatePickerBottomSheet(
         confirmValueChange = { false }
     ),
     dateFormat: DateFormat = DateFormat.FULL,
+    language: Language = Language.PERSIAN,
     selectedDateTextStyle : TextStyle = TextStyle(
         fontFamily = config.fontFamily,
         fontSize = config.maxFontSize.sp,
@@ -77,6 +79,7 @@ fun ZamanakDatePickerBottomSheet(
                 dateFormat = dateFormat ,
                 buttonColor = buttonColor,
                 selectedDateTextStyle = selectedDateTextStyle,
+                language = language,
                 onCancel = {
                     scope.launch {
                         bottomSheetState.hideAndDismiss(onDismissBottomSheet)
@@ -97,6 +100,7 @@ fun ZamanakDatePickerBottomSheet(
 private fun ZamanakDatePickerBottomSheetContent(
     config : ZamanakDatePickerConfig,
     dateFormat: DateFormat,
+    language: Language,
     buttonConfirmText : String = stringResource(R.string.confirm),
     buttonCancelText : String = stringResource(R.string.cancel),
     buttonColor : Color,
@@ -113,9 +117,9 @@ private fun ZamanakDatePickerBottomSheetContent(
 
         Text(
             text = when(config.calendarType){
-                CalendarType.Gregorian -> dateSelected.gregorianDate.format(dateFormat)
-                CalendarType.Jalali -> dateSelected.jalaliDate.format(dateFormat)
-                CalendarType.Hijri -> dateSelected.hijriDate.format(dateFormat)
+                CalendarType.Gregorian -> dateSelected.gregorianDate.format(dateFormat, language)
+                CalendarType.Jalali -> dateSelected.jalaliDate.format(dateFormat, language)
+                CalendarType.Hijri -> dateSelected.hijriDate.format(dateFormat, language)
             } ,
             style = selectedDateTextStyle ,
             modifier = Modifier.padding(bottom = 15.dp)
@@ -176,7 +180,8 @@ private fun ZamanakTimePickerBottomSheetPreview() {
             config = ZamanakDatePickerConfig() ,
             dateFormat = DateFormat.FULL,
             buttonColor = Color.Blue ,
-            selectedDateTextStyle = TextStyle()
+            selectedDateTextStyle = TextStyle() ,
+            language = Language.ENGLISH
         ){
 
         }

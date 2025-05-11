@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,8 +50,10 @@ import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.Z
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakTimePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.CalendarType
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.ClockFormat
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.DateFormat
+import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.Language
 
 class MainActivity : ComponentActivity() {
 
@@ -70,7 +73,7 @@ fun MyApp() {
             Column {
                 DatePicker()
                 TimePicker()
-                Main()
+//                Main()
             }
         }
     }
@@ -85,8 +88,14 @@ fun TimePicker() {
         ZamanakTimePickerBottomSheet(
             config = ZamanakTimePickerConfig(
                 defaultClock = Clock(20 , 55 , 30) ,
-                focusBackground = null
+                focusBackground = null ,
+                is24HourFormat = false ,
+                minFontSize = 16f,
+                maxFontSize = 16f,
+                maxRotation = 0f ,
+                unfocusedCount = 1 ,
             ),
+            clockFormat = ClockFormat.H12_HMS_AMPM,
             onDismissBottomSheet = { showBottomSheet = false } ,
             onConfirm = {
                 Log.i("TAG", "MyApp: $it")
@@ -104,7 +113,7 @@ fun TimePicker() {
         modifier = Modifier
             .padding(horizontal = 8.dp)
     ) {
-        Text("دیالوگ انتخاب زمان" , style = MaterialTheme.typography.bodyMedium)
+        Text(stringResource(R.string.time_picker) , style = MaterialTheme.typography.bodyMedium)
     }
 }
 
@@ -115,9 +124,11 @@ fun DatePicker() {
     if (showBottomSheet) {
         ZamanakDatePickerBottomSheet(
             config = ZamanakDatePickerConfig(
-                fontFamily = CustomFontFamily
+                calendarType = CalendarType.Gregorian,
+                language = Language.ENGLISH ,
             ),
-            selectedDateTextStyle = MaterialTheme.typography.bodyLarge,
+            dateFormat = DateFormat.FULL,
+            language = Language.ENGLISH,
             onDismissBottomSheet = { showBottomSheet = false } ,
             onConfirm = {
                 Log.i("TAG", "MyApp: $it")
@@ -135,7 +146,7 @@ fun DatePicker() {
         modifier = Modifier
             .padding(horizontal = 8.dp)
     ) {
-        Text("دیالوگ انتخاب تاریخ" , style = MaterialTheme.typography.bodyMedium)
+        Text(stringResource(R.string.date_picker) , style = MaterialTheme.typography.bodyMedium)
     }
 }
 
