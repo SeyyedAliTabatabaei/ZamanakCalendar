@@ -37,7 +37,7 @@ fun ZamanakDatePicker(
 ) {
     val yearList = (config.newMinYear..config.newMaxYear).toList()
     val monthNumberList = (1..12).toList()
-    var dayList by remember { mutableStateOf((1..30).toList()) }
+    var dayList by remember { mutableStateOf((1..31).toList()) }
 
     val defaultDate = config.defaultDate
     val monthNameList = getMonthNameList(config)
@@ -51,7 +51,7 @@ fun ZamanakDatePicker(
         val month = monthNumberList.getOrNull(monthSelected) ?: 1
         val daysInMonth = getDaysInMonth(config.calendarType, defaultDate, year, month)
 
-        if (dayList.size != daysInMonth) {
+        if (dayList.count() != daysInMonth) {
             dayList = (1..daysInMonth).toList()
         }
     }
@@ -190,9 +190,9 @@ private fun getDaysInMonth(
     month: Int
 ): Int {
     val updated = when (type) {
-        CalendarType.Gregorian -> core.setDateFromGregorian(core.gregorianDate.copy(year = year, month = month))
-        CalendarType.Jalali -> core.setDateFromJalali(core.jalaliDate.copy(year = year, month = month))
-        CalendarType.Hijri -> core.setDateFromHijri(core.hijriDate.copy(year = year, month = month))
+        CalendarType.Gregorian -> core.setDateFromGregorian(core.gregorianDate.copy(year = year, month = month , dayOfMonth = 1))
+        CalendarType.Jalali -> core.setDateFromJalali(core.jalaliDate.copy(year = year, month = month, dayOfMonth = 1))
+        CalendarType.Hijri -> core.setDateFromHijri(core.hijriDate.copy(year = year, month = month, dayOfMonth = 1))
     }
 
     return when (type) {

@@ -41,6 +41,7 @@ import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.datePicker.Z
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakDatePickerConfig
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePickerBottomSheet
 import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.model.ZamanakTimePickerConfig
+import seyyed.ali.tabatabaei.zamanakCalendar.compose_ui_date_picker.timePicker.ZamanakTimePicker
 import seyyed.ali.tabatabaei.zamanakCalendar.core.ZamanakCore
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.Clock
 import seyyed.ali.tabatabaei.zamanakCalendar.core.model.enums.CalendarType
@@ -66,6 +67,38 @@ fun MyApp() {
             Column {
                 DatePicker()
                 TimePicker()
+
+                ZamanakDatePicker(
+                    config = ZamanakDatePickerConfig(
+                        maxFontSize = 16f ,
+                        minFontSize = 12f ,
+                        unfocusedCount = 2 ,
+                        defaultDate = ZamanakCore() ,
+                        focusBackground = {
+                            Box(Modifier.fillMaxSize().padding(horizontal = 5.dp).background(Color.Gray.copy(alpha = 0.2f) , RoundedCornerShape(8.dp)))
+                        }
+                    ),
+                    dateSelected = { }
+                )
+
+                ZamanakTimePicker(
+                    config = ZamanakTimePickerConfig(
+                        maxFontSize = 16f ,
+                        minFontSize = 12f ,
+                        unfocusedCount = 2 ,
+                        defaultClock = ZamanakCore().clock,
+                        showSecondPicker = false ,
+                        focusBackground = {
+                            Box(Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 5.dp)
+                                .background(
+                                    Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(8.dp)
+                                ))
+                        }
+                    ),
+                    timeSelected = { }
+                )
                 Main()
             }
         }
