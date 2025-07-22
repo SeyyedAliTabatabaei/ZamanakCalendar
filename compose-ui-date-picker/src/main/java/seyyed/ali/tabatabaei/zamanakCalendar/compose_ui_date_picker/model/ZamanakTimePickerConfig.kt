@@ -20,6 +20,7 @@ data class ZamanakTimePickerConfig(
     val fontFamily: FontFamily? = null,
     val textColor: Color = Color.Gray,
     val textColorSelected: Color = Color.Blue,
+    val dotColor : Color = Color.Black,
     val itemHeight: Dp = 25.dp,
     val showHourPicker: Boolean = true,
     val showMinutePicker: Boolean = true,
