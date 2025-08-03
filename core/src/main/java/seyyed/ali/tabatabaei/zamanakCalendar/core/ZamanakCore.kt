@@ -455,6 +455,27 @@ class ZamanakCore() : ZamanakCalendarOperations {
         }
     }
 
+    override fun getMonthDaysWithCalendarPadding(calendarType: CalendarType) : List<ZamanakCore>  {
+        val newList = mutableListOf<ZamanakCore>()
+        val days = getMonthDaysList(calendarType)
+
+        val weekDayNumberStartMonth = days.first().jDate.getWeekdayNumber()
+        val startDayMonth = ZamanakCore().setDateFromTimeInMillis(days.first().toMillis()).subDate(calendarType , TimeUnitType.DAY , weekDayNumberStartMonth)
+        (1 until weekDayNumberStartMonth).forEach {
+            newList.add(ZamanakCore().setDateFromTimeInMillis(startDayMonth.addDate(calendarType , TimeUnitType.DAY , 1).toMillis()))
+        }
+
+        newList.addAll(days)
+
+        val weekDayNumberEndMonth = days.last().jDate.getWeekdayNumber()
+        val endDayMonth = ZamanakCore().setDateFromTimeInMillis(days.last().toMillis())
+        (weekDayNumberEndMonth+1 .. 7).forEach{
+            newList.add(ZamanakCore().setDateFromTimeInMillis(endDayMonth.addDate(calendarType , TimeUnitType.DAY , 1).toMillis()))
+        }
+
+        return newList
+    }
+
     override fun toString(): String {
         return "JalaliDate -> $jDate \tGregorianDate -> $gDate \tHijriDate -> $hDate \tClock -> $clockTime \t"
     }
