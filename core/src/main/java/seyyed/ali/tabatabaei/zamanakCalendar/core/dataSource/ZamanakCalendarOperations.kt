@@ -148,4 +148,26 @@ internal interface ZamanakCalendarOperations{
      */
     fun getMonthDaysList(calendarType: CalendarType) : List<ZamanakCore>
 
+
+    /**
+     * Generates a list of days for displaying a complete calendar grid for the current month,
+     * including the necessary padding days from the previous and next months.
+     *
+     * This method uses [getMonthDaysList] to retrieve all days of the current month based on the given [calendarType],
+     * and then adds additional days before and after the month to ensure the list fits into a complete 7-column
+     * weekly grid (e.g., for display in a calendar view using LazyVerticalGrid or similar).
+     *
+     * For example, if the first day of the month falls on a Wednesday (weekday number 3), this function
+     * will prepend days from the previous month to fill Monday and Tuesday. Similarly, if the last day
+     * of the month is on a Thursday (weekday number 4), it will append days from the next month to fill
+     * Friday, Saturday, and Sunday.
+     *
+     * @param calendarType The type of calendar to generate the padded month days for ([CalendarType]).
+     *                     Supported types include Gregorian and Jalali calendars.
+     * @return A list of [ZamanakCore] instances representing a full grid of days,
+     *         including both actual days of the current month and padding days
+     *         from adjacent months to form a complete calendar view.
+     */
+    fun getMonthDaysWithCalendarPadding(calendarType: CalendarType) : List<ZamanakCore>
+
 }
